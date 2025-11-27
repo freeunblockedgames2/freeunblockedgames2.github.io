@@ -2,249 +2,260 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Free Math Games - Chat Room</title>
-
 <style>
 body {
-    background: url('https://gcdnb.pbrd.co/images/ZkCX8Y8SExuR.jpg?o=1') no-repeat center center fixed;
-    background-size: cover;
-
-    color: #00f;
-    font-family: 'Arial Black', sans-serif;
-    margin: 0;
+background: url('https://gcdnb.pbrd.co/images/ZkCX8Y8SExuR.jpg?o=1') no-repeat center center fixed;
+background-size: cover;
+        color: #00f;
+  font-family: 'Arial Black', sans-serif;
+margin: 0;
     padding: 30px 0 0 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
+display: flex;
+      flex-direction: column;
+  align-items: center;
+        overflow: hidden;
+position: relative;
 }
 
-canvas#snow {
-    position: fixed;
+  canvas#snow {
+        position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+      left: 0;
+width: 100%;
+  height: 100%;
     z-index: -1;
-    pointer-events: none;
-}
+pointer-events: none;
+  }
 
 .neon-text {
-    font-size: 48px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    text-shadow: 0 0 10px #00f, 0 0 20px #00f;
+      font-size: 48px;
+text-transform: uppercase;
+  margin-bottom: 20px;
+      text-shadow: 0 0 10px #00f, 0 0 20px #00f;
 }
 
-.chat-container {
-    width: 90%;
-    max-width: 600px;
-    background: rgba(0, 0, 255, 0.1);
-    border: 2px solid #00f;
+    .chat-container {
+  width: 90%;
+max-width: 600px;
+      background: rgba(0, 0, 255, 0.1);
+border: 2px solid #00f;
     border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 0 10px #00f, 0 0 20px #00f;
-}
+  padding: 20px;
+        box-shadow: 0 0 10px #00f, 0 0 20px #00f;
+    }
 
 #chatBox {
-    height: 300px;
-    overflow-y: auto;
-    background: rgba(0, 0, 255, 0.05);
-    border-radius: 10px;
-    padding: 10px;
+  height: 300px;
+      overflow-y: auto;
+background: rgba(0, 0, 255, 0.05);
+  border-radius: 10px;
+        padding: 10px;
     margin-bottom: 10px;
 }
 
-.input-container {
-    display: flex;
-    gap: 10px;
-}
+  .input-container {
+      display: flex;
+gap: 10px;
+    }
 
 input, button {
-    padding: 10px;
-    font-family: 'Arial Black', sans-serif;
-    font-size: 16px;
+padding: 10px;
+      font-family: 'Arial Black', sans-serif;
+  font-size: 16px;
     border-radius: 8px;
-    border: none;
-}
+border: none;
+  }
 
-input {
-    flex: 1;
-    background: rgba(0, 0, 255, 0.1);
-    color: #00f;
-}
+    input {
+flex: 1;
+  background: rgba(0, 0, 255, 0.1);
+      color: #00f;
+    }
 
 button {
-    background: none;
-    color: #00f;
-    border: 2px solid #00f;
-    cursor: pointer;
+  background: none;
+      color: #00f;
+  border: 2px solid #00f;
+        cursor: pointer;
 }
 
-button:hover {
-    background: #00f;
-    color: #000;
-}
+    button:hover {
+background: #00f;
+      color: #000;
+  }
 
 .username {
-    color: #00f;
-    text-shadow: 0 0 5px #00f;
-}
+      color: #00f;
+  text-shadow: 0 0 5px #00f;
+    }
 
-.message {
-    color: #fff;
+  .message {
+        color: #fff;
 }
 </style>
 </head>
 <body>
-
-<canvas id="snow"></canvas>
+  <canvas id="snow"></canvas>
 
 <div class="neon-text">Unblocked Games Chat</div>
 
-<div class="chat-container">
-    <div id="chatBox"></div>
-    <div class="input-container">
-        <input type="text" id="usernameInput" placeholder="Username then press Enter">
+    <div class="chat-container">
+<div id="chatBox"></div>
+  <div class="input-container">
+      <input type="text" id="usernameInput" placeholder="Username then press Enter">
         <input type="text" id="messageInput" placeholder="Type a message..." disabled>
-        <button id="sendButton">Send</button>
+<button id="sendButton">Send</button>
     </div>
 </div>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
     import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
 
-    var firebaseConfig = {
-        apiKey: "AIzaSyBzenPsK0jxWpXz-4a6pR4-rIgDU8Jr6hU",
-        authDomain: "idk-bruh-fc9e2.firebaseapp.com",
-        databaseURL: "https://idk-bruh-fc9e2-default-rtdb.firebaseio.com",
-        projectId: "idk-bruh-fc9e2",
+var firebaseConfig = {
+apiKey: "AIzaSyBzenPsK0jxWpXz-4a6pR4-rIgDU8Jr6hU",
+      authDomain: "idk-bruh-fc9e2.firebaseapp.com",
+databaseURL: "https://idk-bruh-fc9e2-default-rtdb.firebaseio.com",
+  projectId: "idk-bruh-fc9e2",
         storageBucket: "idk-bruh-fc9e2.firebasestorage.app",
-        messagingSenderId: "68840574679",
-        appId: "1:68840574679:web:63d2ccb8fb431c3eb86a92",
-        measurementId: "G-FZX0397BC6"
-    };
+    messagingSenderId: "68840574679",
+appId: "1:68840574679:web:63d2ccb8fb431c3eb86a92",
+  measurementId: "G-FZX0397BC6"
+};
 
     var app = initializeApp(firebaseConfig);
-    var database = getDatabase(app);
-    var messagesRef = ref(database, 'messages');
+var database = getDatabase(app);
+  var messagesRef = ref(database, 'messages');
 
-    var chatBox = document.getElementById('chatBox');
-    var usernameInput = document.getElementById('usernameInput');
+      var chatBox = document.getElementById('chatBox');
+var usernameInput = document.getElementById('usernameInput');
     var messageInput = document.getElementById('messageInput');
-    var sendButton = document.getElementById('sendButton');
+  var sendButton = document.getElementById('sendButton');
 
-    var username = '';
+var username = '';
 
-    usernameInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') setUsername();
+usernameInput.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+          setUsername();
+}
     });
 
-    messageInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') sendMessage();
-    });
+      messageInput.addEventListener('keydown', function(e) {
+if (e.key === 'Enter') {
+    sendMessage();
+  }
+});
 
-    sendButton.addEventListener('click', sendMessage);
+    sendButton.addEventListener('click', function() {
+sendMessage();
+  });
 
-    function setUsername() {
-        var name = usernameInput.value.trim();
-        if (name == '') {
-            alert('Username cannot be empty.');
-            return;
-        }
+function setUsername() {
+      var name = usernameInput.value.trim();
+if (name == '') {
+  alert('Username cannot be empty.');
+        return;
+}
 
-        username = name;
+  username = name;
+
         usernameInput.disabled = true;
-        messageInput.disabled = false;
-        messageInput.focus();
+messageInput.disabled = false;
+    messageInput.focus();
+  }
+
+function sendMessage() {
+  var msg = messageInput.value.trim();
+      if (msg == '' || username == '') {
+return;
     }
 
-    function sendMessage() {
-        var msg = messageInput.value.trim();
-        if (msg == '' || username == '') return;
+var data = {
+  user: username,
+      text: msg,
+    timestamp: Date.now()
+};
 
-        var data = {
-            user: username,
-            text: msg,
-            timestamp: Date.now()
-        };
-
-        push(messagesRef, data);
-        messageInput.value = '';
-    }
+push(messagesRef, data);
+    messageInput.value = '';
+  }
 
     function addMessage(data) {
-        var div = document.createElement('div');
-        var user = data.user;
-        var text = data.text;
+var div = document.createElement('div');
+      var user = data.user;
+var text = data.text;
+  
+    var msg = text.replace(/</g, "&lt;");
+msg = msg.replace(/>/g, "&gt;");
+  if (msg.indexOf('http://') != -1 || msg.indexOf('https://') != -1) {
+      msg = '[no links allowed]';
+}
 
-        var msg = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        if (msg.includes("http://") || msg.includes("https://")) {
-            msg = "[no links allowed]";
-        }
+    div.innerHTML = '<strong class="username">' + user + '</strong>: <span class="message">' + msg + '</span>';
 
-        div.innerHTML = '<strong class="username">' + user + '</strong>: <span class="message">' + msg + '</span>';
-
-        chatBox.appendChild(div);
+  chatBox.appendChild(div);
         chatBox.scrollTop = chatBox.scrollHeight;
-    }
+}
 
-    onChildAdded(messagesRef, snapshot => addMessage(snapshot.val()));
+onChildAdded(messagesRef, function(snapshot) {
+    var data = snapshot.val();
+  addMessage(data);
+      });
 </script>
 
-<script>
-    var canvas = document.getElementById('snow');
-    var ctx = canvas.getContext('2d');
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-    canvas.width = width;
+  <script>
+      var canvas = document.getElementById('snow');
+var ctx = canvas.getContext('2d');
+  var width = window.innerWidth;
+      var height = window.innerHeight;
+canvas.width = width;
     canvas.height = height;
 
-    var snowflakes = [];
-    for (var i = 0; i < 150; i++) {
-        snowflakes.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            r: Math.random() * 3 + 1,
-            d: Math.random() * 1 + 0.5
-        });
+var snowflakes = [];
+  for (var i = 0; i < 150; i++) {
+      snowflakes.push({
+    x: Math.random() * width,
+y: Math.random() * height,
+  r: Math.random() * 3 + 1,
+        d: Math.random() * 1 + 0.5
+});
     }
 
-    function drawSnowflakes() {
-        ctx.clearRect(0, 0, width, height);
+function drawSnowflakes() {
+  ctx.clearRect(0, 0, width, height);
         ctx.fillStyle = 'white';
-        ctx.beginPath();
-        for (var flake of snowflakes) {
-            ctx.moveTo(flake.x, flake.y);
-            ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
-        }
-        ctx.fill();
-        updateSnowflakes();
-        requestAnimationFrame(drawSnowflakes);
-    }
+ctx.beginPath();
+    for (var i = 0; i < snowflakes.length; i++) {
+  var flake = snowflakes[i];
+      ctx.moveTo(flake.x, flake.y);
+    ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
+}
+  ctx.fill();
+      updateSnowflakes();
+    requestAnimationFrame(drawSnowflakes);
+}
 
-    function updateSnowflakes() {
-        for (var flake of snowflakes) {
-            flake.y += flake.d;
-            if (flake.y > height) {
-                flake.y = 0;
-                flake.x = Math.random() * width;
-            }
+  function updateSnowflakes() {
+for (var i = 0; i < snowflakes.length; i++) {
+    var flake = snowflakes[i];
+  flake.y += flake.d;
+      if (flake.y > height) {
+flake.y = 0;
+    flake.x = Math.random() * width;
+  }
         }
-    }
+}
 
     drawSnowflakes();
 
-    window.addEventListener('resize', function() {
-        width = window.innerWidth;
-        height = window.innerHeight;
-        canvas.width = width;
-        canvas.height = height;
+window.addEventListener('resize', function() {
+    width = window.innerWidth;
+  height = window.innerHeight;
+      canvas.width = width;
+canvas.height = height;
     });
-</script>
-
+  </script>
 </body>
 </html>

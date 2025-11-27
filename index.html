@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Free Unblocked Games</title>
-
   <style>
     body {
-      background-color: transparent;
+      background: url('https://gcdnb.pbrd.co/images/ZkCX8Y8SExuR.jpg?o=1') no-repeat center center fixed;
+      background-size: cover;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -18,33 +18,6 @@
       overflow: hidden;
       text-align: center;
       color: white;
-      position: relative;
-    }
-
-    /* 🔥 BACKGROUND IMAGE BEHIND EVERYTHING */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url("https://gcdnb.pbrd.co/images/pedJf1uM7Oe3.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      opacity: 0.3; /* adjust brightness */
-      z-index: -3;
-    }
-
-    #starfield {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -2;
     }
 
     .neon-text {
@@ -97,6 +70,15 @@
       fill: none;
     }
 
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      transition: background-color 5000s ease-in-out 0s;
+      -webkit-text-fill-color: white !important;
+      box-shadow: 0 0 0px 1000px transparent inset !important;
+    }
+
     @keyframes neonGlowBlue {
       from {
         text-shadow:
@@ -121,6 +103,16 @@
       to {
         box-shadow: 0 0 10px #fff, 0 0 25px #00f, 0 0 50px #00f;
       }
+    }
+
+    #starfield {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
     }
 
     .btn {
@@ -197,31 +189,31 @@
   </button>
 </div>
 
-<button class="btn" onclick="window.open('https://jacksonplayzskibidiriss.github.io/contact_us', '_blank')">Contact Us</button>
+<!-- Contact Us, Form, Discord buttons -->
+<button class="btn" onclick="window.open('https://sites.google.com/ahschools.us/free-math-gamess/contact-us?authuser=0', '_blank')">Contact Us</button>
 <button class="btn" onclick="window.open('https://sites.google.com/ahschools.us/free-math-gamess/form?authuser=0', '_blank')">Form</button>
 <button class="btn" onclick="window.open('https://discord.gg/xFMpuKBFr8', '_blank')">Join Our Discord</button>
 
+<!-- Featured Games Section -->
 <div class="featured-games">Featured Games</div>
-
 <div class="game-images">
   <a href="https://sites.google.com/ahschools.us/free-math-gamess/games/1v1-lol?authuser=0" target="_blank">
     <img src="https://gcdnb.pbrd.co/images/pedJf1uM7Oe3.jpg" alt="1v1 Lol">
   </a>
-
   <a href="https://sites.google.com/ahschools.us/free-math-gamess/games/mario-kart?authuser=0" target="_blank">
     <img src="https://gcdnb.pbrd.co/images/zo1Mbgd5dAut.jpg" alt="Mario Kart">
   </a>
-
   <a href="https://sites.google.com/d/1nQBUMH-lUua_DongjINiZd1LkhmyUCH9/p/14kVcQ9c8iHIVse51JMbPSJpCdqe1VEE_/edit" target="_blank">
     <img src="https://gcdnb.pbrd.co/images/IzXAqJC0SJd4.png" alt="Game 3">
   </a>
 </div>
 
+<!-- Footer Text -->
 <div class="footer">
   <p><strong>Coincidence is God's way of remaining anonymous</strong></p>
-  <p>Please don't tell too many people about this, this might get blocked chat :(</p>
+  <p>Please don't tell too much people about this, this might get blocked chat :(</p>
   <p>This is a website where you can play unblocked games and have fun in school. If this gets blocked, I'm making another site chat, okay? Now go play those games! Games you can play are:</p>
-  <p>Mario Kart, Super Circuit, 1v1.lol, Boxing, Eaglercraft, Retro Bowl, and more!</p>
+  <p>Mario Kart, Super Circuit, 1v1.lol, Boxing, Random Eaglercraft 1.12 and 1.8, Retro Bowl, and more!</p>
 </div>
 
 <script>
@@ -234,14 +226,16 @@
   }
 
   document.getElementById('searchInput').addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') searchElite();
+    if (event.key === 'Enter') {
+      searchElite();
+    }
   });
 
+  // Starfield animation
   const canvas = document.getElementById('starfield');
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-
   const stars = [];
   const starCount = 100;
 
@@ -257,19 +251,16 @@
   function animateStars() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-
     for (let star of stars) {
       ctx.beginPath();
       ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
       ctx.fill();
-
       star.y += star.speed;
       if (star.y > canvas.height) {
         star.y = 0;
         star.x = Math.random() * canvas.width;
       }
     }
-
     requestAnimationFrame(animateStars);
   }
 
