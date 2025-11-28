@@ -3,9 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>𝔽𝕣𝕖𝕖 𝕌𝕟𝕓𝕝𝕠𝕔𝕜𝕖𝕕 𝔾𝕒𝕞𝕖𝕤</title>
+    <title>Free Unblocked Games</title>
     <link rel="icon" type="image/x-icon" href="https://gcdnb.pbrd.co/images/1cFGsWokSVvb.jpg?o=1">
     <style>
+        /* Loading Screen Styles */
+        #gameLoadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .game-loading-logo {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            border: 3px solid #00f;
+            box-shadow: 0 0 30px rgba(0, 0, 255, 0.7);
+            animation: logoPulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoPulse {
+            from {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
+            }
+            to {
+                transform: scale(1.1);
+                box-shadow: 0 0 40px rgba(0, 0, 255, 0.9);
+            }
+        }
+
+        .game-loading-text {
+            font-size: 48px;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: neonGlowBlue 2s ease-in-out infinite alternate;
+            color: #00f;
+            text-align: center;
+            font-family: 'Arial Black', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        @keyframes neonGlowBlue {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 15px #00f, 0 0 30px #00f, 0 0 60px #00f;
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 20px #00f, 0 0 40px #00f, 0 0 80px #00f;
+            }
+        }
+
+        .game-loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(0, 0, 255, 0.3);
+            border-top: 5px solid #00f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         body {
             margin: 0;
             font-family: 'Arial Black', sans-serif;
@@ -46,15 +116,6 @@
             color: #00f;
             margin-bottom: 20px;
             text-align: center;
-        }
-
-        @keyframes neonGlowBlue {
-            from {
-                text-shadow: 0 0 5px #fff, 0 0 15px #00f, 0 0 30px #00f, 0 0 60px #00f;
-            }
-            to {
-                text-shadow: 0 0 10px #fff, 0 0 20px #00f, 0 0 40px #00f, 0 0 80px #00f;
-            }
         }
 
         .search-container {
@@ -460,8 +521,15 @@
 <body>
     <canvas id="starfield"></canvas>
     
+    <!-- Game Loading Screen -->
+    <div id="gameLoadingScreen">
+        <img src="https://gcdnb.pbrd.co/images/1cFGsWokSVvb.jpg?o=1" alt="Free Unblocked Games Logo" class="game-loading-logo">
+        <div class="game-loading-text">Loading Game...</div>
+        <div class="game-loading-spinner"></div>
+    </div>
+    
     <header>
-        <div class="neon-text">𝔽𝕣𝕖𝕖 𝕌𝕟𝕓𝕝𝕠𝕔𝕜𝕖𝕕 𝔾𝕒𝕞𝕖𝕤</div>
+        <div class="neon-text">Free Unblocked Games</div>
         
         <div class="search-container">
             <input type="text" id="searchBar" placeholder="Search games...">
@@ -622,14 +690,22 @@
             }
         });
 
-        // Game play functionality
+        // Game play functionality with loading screen
         function playGame(url) {
-            document.getElementById('gameIframe').src = url;
-            document.getElementById('iframeContainer').style.display = 'flex';
-            // Reset fullscreen state when opening new game
-            document.getElementById('iframeContainer').classList.remove('fullscreen');
-            // Reset button text
-            document.querySelector('.fullscreen-button').textContent = 'Fullscreen';
+            // Show loading screen
+            document.getElementById('gameLoadingScreen').style.display = 'flex';
+            
+            // Load game after a short delay to show loading screen
+            setTimeout(function() {
+                document.getElementById('gameIframe').src = url;
+                document.getElementById('iframeContainer').style.display = 'flex';
+                // Hide loading screen
+                document.getElementById('gameLoadingScreen').style.display = 'none';
+                // Reset fullscreen state when opening new game
+                document.getElementById('iframeContainer').classList.remove('fullscreen');
+                // Reset button text
+                document.querySelector('.fullscreen-button').textContent = 'Fullscreen';
+            }, 1500); // 1.5 second loading screen
         }
 
         function closeGame() {
