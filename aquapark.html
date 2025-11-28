@@ -1,73 +1,175 @@
 <!DOCTYPE html>
-<html lang="en-us">
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <base href="https://cdn.jsdelivr.net/gh/genizy/braybray/aquapark-io/">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Aquapark IO</title>
-  <link rel="stylesheet" href="TemplateData/css/style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="author" content="igroutka.ru" />
-  <link rel="canonical" href="https://igroutka.ru/" />
-  <script src="Build/UnityLoader.js"></script>
-  <script src="TemplateData/load.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aquapark IO</title>
+    <style>
+        /* Loading Screen Styles */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-logo {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            border: 3px solid #00f;
+            box-shadow: 0 0 30px rgba(0, 0, 255, 0.7);
+            animation: logoPulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoPulse {
+            from {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
+            }
+            to {
+                transform: scale(1.1);
+                box-shadow: 0 0 40px rgba(0, 0, 255, 0.9);
+            }
+        }
+
+        .loading-text {
+            font-size: 48px;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: neonGlowBlue 2s ease-in-out infinite alternate;
+            color: #00f;
+            text-align: center;
+            font-family: 'Arial Black', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        @keyframes neonGlowBlue {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 15px #00f, 0 0 30px #00f, 0 0 60px #00f;
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 20px #00f, 0 0 40px #00f, 0 0 80px #00f;
+            }
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(0, 0, 255, 0.3);
+            border-top: 5px solid #00f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Game Content */
+        #gameContent {
+            display: none;
+        }
+    </style>
 </head>
-
 <body>
-  <div class="keepRatio">
-    <div class="webgl-content">
-      <button class="icon-resize-full" id="fullScreenButton" onclick="ToggleFullScreen()"></button>
-      <a id="logoname" style="display:none;" href="https://igroutka.ru/" target="_blank">igroutka.ru</a>
-      <div id="gameContainer"></div>
+    <!-- Loading Screen -->
+    <div id="loadingScreen">
+        <img src="https://gcdnb.pbrd.co/images/1cFGsWokSVvb.jpg?o=1" alt="Free Unblocked Games Logo" class="loading-logo">
+        <div class="loading-text">Loading Game...</div>
+        <div class="loading-spinner"></div>
     </div>
-    <div id="loadingBlock">
-      <h1 class="subtitle">Aquapark.io</h1>
-      <script type="text/javascript" style="display:none">
-        window.__mirage2 = {
-          petok: "aCj.QNwGUOfLrCmu67eagpL0xPleX_OUL2kyVMsyHGk-31536000-0"
-        };
-      </script>
-      <script type="text/javascript" src="patch/cdn/mirage2.min.js"></script>
-      <img class="logo-game" data-cfsrc="Aquaparkio512.jpg" style="display:none;visibility:hidden;" /><noscript><img class="logo-game" src="Aquaparkio512.jpg" /></noscript>
-      <div id="progressBar">
-        <div style="margin-bottom:5px">Loading ...</div>
-        <div class="centered emptyBarbg">
-          <div id="emptyBar"></div>
-          <div id="fullBar"></div>
-        </div>
-      </div>
-      <div id="warningBrowserBlock" style="display:none;">
-        <div class="warningBrowserText"> Your browser may not be compatible with this website. For an optimal experience, we suggest you to download one of this popular web browsers. </div>
-        <div class="browserIcons">
-          <span>Firefox browser</span>
-          <span>Chrome browser</span>
-          <span>Safari browser</span>
-        </div>
-      </div>
-      <div id="warningMobileBlock" style="display:none;">
-      </div>
-      <div class="cover" style="background-image: url(Aquaparkio512.jpg)"></div>
-    </div>
-    <div id="errorBrowserBlock" style="display:none;">
-      <div id="errorContent">
-        <div id="errorBrowserText"> Your browser does not support WebGL. <br> You can download one of this popular web browsers. </div>
-        <div class="browserIcons">
-          <span>Firefox browser</span>
-          <span>Chrome browser</span>
-          <span>Safari browser</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
-    (function(a, b, c) {
-      var d = a.getElementsByTagName(b)[0];
-      a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "patch/js/gm-sdk-preload.js?v=" + Date.now(), d.parentNode.insertBefore(a, d))
-    })(document, "script", "gamemonetize-preload-api");
-  </script>
-  <script src="js/analytics_ubg_v1_4.js"></script>
-  <script src="js/ubg235_client_v1_1.js"></script>
-</body>
 
+    <!-- Game Content -->
+    <div id="gameContent">
+        <!DOCTYPE html>
+        <html lang="en-us">
+        <head>
+          <meta charset="utf-8">
+          <base href="https://cdn.jsdelivr.net/gh/genizy/braybray/aquapark-io/">
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+          <title>Aquapark IO</title>
+          <link rel="stylesheet" href="TemplateData/css/style.css">
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="author" content="igroutka.ru" />
+          <link rel="canonical" href="https://igroutka.ru/" />
+          <script src="Build/UnityLoader.js"></script>
+          <script src="TemplateData/load.js"></script>
+        </head>
+
+        <body>
+          <div class="keepRatio">
+            <div class="webgl-content">
+              <button class="icon-resize-full" id="fullScreenButton" onclick="ToggleFullScreen()"></button>
+              <a id="logoname" style="display:none;" href="https://igroutka.ru/" target="_blank">igroutka.ru</a>
+              <div id="gameContainer"></div>
+            </div>
+            <div id="loadingBlock">
+              <h1 class="subtitle">Aquapark.io</h1>
+              <script type="text/javascript" style="display:none">
+                window.__mirage2 = {
+                  petok: "aCj.QNwGUOfLrCmu67eagpL0xPleX_OUL2kyVMsyHGk-31536000-0"
+                };
+              </script>
+              <script type="text/javascript" src="patch/cdn/mirage2.min.js"></script>
+              <img class="logo-game" data-cfsrc="Aquaparkio512.jpg" style="display:none;visibility:hidden;" /><noscript><img class="logo-game" src="Aquaparkio512.jpg" /></noscript>
+              <div id="progressBar">
+                <div style="margin-bottom:5px">Loading ...</div>
+                <div class="centered emptyBarbg">
+                  <div id="emptyBar"></div>
+                  <div id="fullBar"></div>
+                </div>
+              </div>
+              <div id="warningBrowserBlock" style="display:none;">
+                <div class="warningBrowserText"> Your browser may not be compatible with this website. For an optimal experience, we suggest you to download one of this popular web browsers. </div>
+                <div class="browserIcons">
+                  <span>Firefox browser</span>
+                  <span>Chrome browser</span>
+                  <span>Safari browser</span>
+                </div>
+              </div>
+              <div id="warningMobileBlock" style="display:none;">
+              </div>
+              <div class="cover" style="background-image: url(Aquaparkio512.jpg)"></div>
+            </div>
+            <div id="errorBrowserBlock" style="display:none;">
+              <div id="errorContent">
+                <div id="errorBrowserText"> Your browser does not support WebGL. <br> You can download one of this popular web browsers. </div>
+                <div class="browserIcons">
+                  <span>Firefox browser</span>
+                  <span>Chrome browser</span>
+                  <span>Safari browser</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <script>
+            (function(a, b, c) {
+              var d = a.getElementsByTagName(b)[0];
+              a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "patch/js/gm-sdk-preload.js?v=" + Date.now(), d.parentNode.insertBefore(a, d))
+            })(document, "script", "gamemonetize-preload-api");
+          </script>
+          <script src="js/analytics_ubg_v1_4.js"></script>
+          <script src="js/ubg235_client_v1_1.js"></script>
+        </body>
+        </html>
+    </div>
+
+    <script>
+        // Show loading screen for 3 seconds, then show game content
+        setTimeout(function() {
+            document.getElementById('loadingScreen').style.display = 'none';
+            document.getElementById('gameContent').style.display = 'block';
+        }, 3000); // 3 second loading screen
+    </script>
+</body>
 </html>

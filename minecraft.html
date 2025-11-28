@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-
-
 <!-- Ultimate Game Stash file--> 
 <!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
-
 
 <html>
 <head>
@@ -11,6 +8,60 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
+    /* Loading Screen Styles */
+    #loadingScreen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+    .loading-logo {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 30px;
+        border-radius: 20px;
+        border: 3px solid #00f;
+        box-shadow: 0 0 30px rgba(0, 0, 255, 0.7);
+        animation: logoPulse 2s ease-in-out infinite alternate;
+    }
+    @keyframes logoPulse {
+        from { transform: scale(1); box-shadow: 0 0 20px rgba(0, 0, 255, 0.5); }
+        to { transform: scale(1.1); box-shadow: 0 0 40px rgba(0, 0, 255, 0.9); }
+    }
+    .loading-text {
+        font-size: 48px;
+        font-weight: bold;
+        text-transform: uppercase;
+        animation: neonGlowBlue 2s ease-in-out infinite alternate;
+        color: #00f;
+        text-align: center;
+        font-family: 'Arial Black', sans-serif;
+        margin-bottom: 20px;
+    }
+    @keyframes neonGlowBlue {
+        from { text-shadow: 0 0 5px #fff, 0 0 15px #00f, 0 0 30px #00f, 0 0 60px #00f; }
+        to { text-shadow: 0 0 10px #fff, 0 0 20px #00f, 0 0 40px #00f, 0 0 80px #00f; }
+    }
+    .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid rgba(0, 0, 255, 0.3);
+        border-top: 5px solid #00f;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
     /* Sayfa ve oyun çerçevesi için temel düzenlemeler */
     html, body {
       margin: 0;
@@ -65,16 +116,31 @@
           container.id = window.eaglercraftXOpts.container;
           document.body.appendChild(container);
         }
-        try {
-          main();
-        } catch (error) {
-          console.error("Error starting EaglercraftX:", error);
-        }
+        
+        // Hide loading screen and start game
+        setTimeout(function() {
+          var loadingScreen = document.getElementById('loadingScreen');
+          if (loadingScreen) {
+            loadingScreen.style.display = 'none';
+          }
+          try {
+            main();
+          } catch (error) {
+            console.error("Error starting EaglercraftX:", error);
+          }
+        }, 3000);
       }
     });
   </script>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div id="loadingScreen">
+    <img src="https://gcdnb.pbrd.co/images/1cFGsWokSVvb.jpg?o=1" alt="Free Unblocked Games Logo" class="loading-logo">
+    <div class="loading-text">Loading Game...</div>
+    <div class="loading-spinner"></div>
+  </div>
+
   <!-- Ensure essential DOM elements exist -->
   <div id="game_frame"></div>
   <div class="_eaglercraftX_wrapper_element"></div>

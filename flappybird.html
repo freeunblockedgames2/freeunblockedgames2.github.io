@@ -1,53 +1,117 @@
-<html><head><style class="darkreader darkreader--text" media="screen"></style><style class="darkreader darkreader--invert" media="screen"></style><style class="darkreader darkreader--inline" media="screen">[data-darkreader-inline-bgcolor] {
-  background-color: var(--darkreader-inline-bgcolor) !important;
-}
-[data-darkreader-inline-bgimage] {
-  background-image: var(--darkreader-inline-bgimage) !important;
-}
-[data-darkreader-inline-border] {
-  border-color: var(--darkreader-inline-border) !important;
-}
-[data-darkreader-inline-border-bottom] {
-  border-bottom-color: var(--darkreader-inline-border-bottom) !important;
-}
-[data-darkreader-inline-border-left] {
-  border-left-color: var(--darkreader-inline-border-left) !important;
-}
-[data-darkreader-inline-border-right] {
-  border-right-color: var(--darkreader-inline-border-right) !important;
-}
-[data-darkreader-inline-border-top] {
-  border-top-color: var(--darkreader-inline-border-top) !important;
-}
-[data-darkreader-inline-boxshadow] {
-  box-shadow: var(--darkreader-inline-boxshadow) !important;
-}
-[data-darkreader-inline-color] {
-  color: var(--darkreader-inline-color) !important;
-}
-[data-darkreader-inline-fill] {
-  fill: var(--darkreader-inline-fill) !important;
-}
-[data-darkreader-inline-stroke] {
-  stroke: var(--darkreader-inline-stroke) !important;
-}
-[data-darkreader-inline-outline] {
-  outline-color: var(--darkreader-inline-outline) !important;
-}
-[data-darkreader-inline-stopcolor] {
-  stop-color: var(--darkreader-inline-stopcolor) !important;
-}</style><style class="darkreader darkreader--variables" media="screen">:root {
-   --darkreader-neutral-background: #202223;
-   --darkreader-neutral-text: #e3dfda;
-   --darkreader-selection-background: #0d59b5;
-   --darkreader-selection-text: #f2f0ed;
-}</style><style class="darkreader darkreader--root-vars" media="screen"></style><style id="stndz-custom-css">@media screen and (min-aspect-ratio: 1280/720) {
-                #application-canvas.fill-mode-KEEP_ASPECT {
-                    width: auto;
-                    height: 100%;
-                    margin: 0 auto;
-                }
-            }</style>
+<html>
+<head>
+    <style class="darkreader darkreader--text" media="screen"></style>
+    <style class="darkreader darkreader--invert" media="screen"></style>
+    <style class="darkreader darkreader--inline" media="screen">[data-darkreader-inline-bgcolor] {
+      background-color: var(--darkreader-inline-bgcolor) !important;
+    }
+    [data-darkreader-inline-bgimage] {
+      background-image: var(--darkreader-inline-bgimage) !important;
+    }
+    [data-darkreader-inline-border] {
+      border-color: var(--darkreader-inline-border) !important;
+    }
+    [data-darkreader-inline-border-bottom] {
+      border-bottom-color: var(--darkreader-inline-border-bottom) !important;
+    }
+    [data-darkreader-inline-border-left] {
+      border-left-color: var(--darkreader-inline-border-left) !important;
+    }
+    [data-darkreader-inline-border-right] {
+      border-right-color: var(--darkreader-inline-border-right) !important;
+    }
+    [data-darkreader-inline-border-top] {
+      border-top-color: var(--darkreader-inline-border-top) !important;
+    }
+    [data-darkreader-inline-boxshadow] {
+      box-shadow: var(--darkreader-inline-boxshadow) !important;
+    }
+    [data-darkreader-inline-color] {
+      color: var(--darkreader-inline-color) !important;
+    }
+    [data-darkreader-inline-fill] {
+      fill: var(--darkreader-inline-fill) !important;
+    }
+    [data-darkreader-inline-stroke] {
+      stroke: var(--darkreader-inline-stroke) !important;
+    }
+    [data-darkreader-inline-outline] {
+      outline-color: var(--darkreader-inline-outline) !important;
+    }
+    [data-darkreader-inline-stopcolor] {
+      stop-color: var(--darkreader-inline-stopcolor) !important;
+    }</style>
+    <style class="darkreader darkreader--variables" media="screen">:root {
+       --darkreader-neutral-background: #202223;
+       --darkreader-neutral-text: #e3dfda;
+       --darkreader-selection-background: #0d59b5;
+       --darkreader-selection-text: #f2f0ed;
+    }</style>
+    <style class="darkreader darkreader--root-vars" media="screen"></style>
+    <style id="stndz-custom-css">@media screen and (min-aspect-ratio: 1280/720) {
+                    #application-canvas.fill-mode-KEEP_ASPECT {
+                        width: auto;
+                        height: 100%;
+                        margin: 0 auto;
+                    }
+                }</style>
+    
+    <!-- Loading Screen Styles -->
+    <style>
+    #loadingScreen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+    .loading-logo {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 30px;
+        border-radius: 20px;
+        border: 3px solid #00f;
+        box-shadow: 0 0 30px rgba(0, 0, 255, 0.7);
+        animation: logoPulse 2s ease-in-out infinite alternate;
+    }
+    @keyframes logoPulse {
+        from { transform: scale(1); box-shadow: 0 0 20px rgba(0, 0, 255, 0.5); }
+        to { transform: scale(1.1); box-shadow: 0 0 40px rgba(0, 0, 255, 0.9); }
+    }
+    .loading-text {
+        font-size: 48px;
+        font-weight: bold;
+        text-transform: uppercase;
+        animation: neonGlowBlue 2s ease-in-out infinite alternate;
+        color: #00f;
+        text-align: center;
+        font-family: 'Arial Black', sans-serif;
+        margin-bottom: 20px;
+    }
+    @keyframes neonGlowBlue {
+        from { text-shadow: 0 0 5px #fff, 0 0 15px #00f, 0 0 30px #00f, 0 0 60px #00f; }
+        to { text-shadow: 0 0 10px #fff, 0 0 20px #00f, 0 0 40px #00f, 0 0 80px #00f; }
+    }
+    .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid rgba(0, 0, 255, 0.3);
+        border-top: 5px solid #00f;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    </style>
+
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="https://d3a5acbc6p6k7h.cloudfront.net/960d78f4/styles.css">
@@ -133,8 +197,27 @@
       }
     </style><meta name="shimejiBrowserExtensionId" content="gohjpllcolmccldfdggmamodembldgpc" data-version="2.0.5"><style class="darkreader darkreader--override" media="screen"></style></head>
 <body>
-    <script src="https://d3a5acbc6p6k7h.cloudfront.net/960d78f4/__start__.js"></script><canvas id="application-canvas" tabindex="0" data-engine="PlayCanvas 2.10.3" style="user-select: none; width: 1027px; height: 919px;" width="1027" height="919" class="fill-mode-FILL_WINDOW"></canvas>
+    <!-- Loading Screen -->
+    <div id="loadingScreen">
+        <img src="https://gcdnb.pbrd.co/images/1cFGsWokSVvb.jpg?o=1" alt="Free Unblocked Games Logo" class="loading-logo">
+        <div class="loading-text">Loading Game...</div>
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script src="https://d3a5acbc6p6k7h.cloudfront.net/960d78f4/__start__.js"></script>
+    <canvas id="application-canvas" tabindex="0" data-engine="PlayCanvas 2.10.3" style="user-select: none; width: 1027px; height: 919px;" width="1027" height="919" class="fill-mode-FILL_WINDOW"></canvas>
     <script src="https://d3a5acbc6p6k7h.cloudfront.net/960d78f4/__loading__.js"></script>
 
+    <!-- Loading Screen Script -->
+    <script>
+    // Hide loading screen after 3 seconds
+    setTimeout(function() {
+        var loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) {
+            loadingScreen.style.display = 'none';
+        }
+    }, 3000);
+    </script>
 
-<div id="shimeji-workArea" style="position: fixed; background: transparent; z-index: 2147483643; width: 100vw; height: 100vh; left: 0px; top: 0px; transform: translate(0px, 0px); pointer-events: none;"></div><div id="give-freely-root-ejkiikneibegknkgimmihdpcbcedgmpo" class="give-freely-root" data-extension-id="ejkiikneibegknkgimmihdpcbcedgmpo" data-extension-name="Volume Booster" style="display: block;"></div><div id="c4g-content-root" class="c4g-widget" data-darkreader-mode="dynamic" data-darkreader-scheme="dark"><meta name="darkreader" content="daa409a7a06e4f94b44d8f0f4fadff11"></div></body></html>
+<div id="shimeji-workArea" style="position: fixed; background: transparent; z-index: 2147483643; width: 100vw; height: 100vh; left: 0px; top: 0px; transform: translate(0px, 0px); pointer-events: none;"></div><div id="give-freely-root-ejkiikneibegknkgimmihdpcbcedgmpo" class="give-freely-root" data-extension-id="ejkiikneibegknkgimmihdpcbcedgmpo" data-extension-name="Volume Booster" style="display: block;"></div><div id="c4g-content-root" class="c4g-widget" data-darkreader-mode="dynamic" data-darkreader-scheme="dark"><meta name="darkreader" content="daa409a7a06e4f94b44d8f0f4fadff11"></div></body>
+</html>

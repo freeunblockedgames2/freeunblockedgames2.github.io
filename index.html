@@ -327,37 +327,51 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #ff0000;
+            width: 50px;
+            height: 50px;
+            background-color: #00f;
             color: #ffffff;
             border: none;
-            border-radius: 5px;
+            border-radius: 50%;
             cursor: pointer;
             font-family: 'Arial Black', sans-serif;
             z-index: 1001;
             transition: opacity 0.3s ease;
+            animation: neonGlowBlueButton 2s ease-in-out infinite alternate;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
         }
 
         .iframe-container .close-button:hover {
-            background-color: #cc0000;
+            background-color: #007bff;
         }
 
         .iframe-container .fullscreen-button {
             position: absolute;
             top: 20px;
-            right: 140px;
-            padding: 10px 20px;
-            font-size: 16px;
+            right: 90px;
+            width: 50px;
+            height: 50px;
             background-color: #00f;
-            color: #ffffff;
             border: none;
-            border-radius: 5px;
+            border-radius: 50%;
             cursor: pointer;
             font-family: 'Arial Black', sans-serif;
             animation: neonGlowBlueButton 2s ease-in-out infinite alternate;
             z-index: 1001;
             transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .iframe-container .fullscreen-button img {
+            width: 30px;
+            height: 30px;
+            filter: brightness(0) invert(1);
         }
 
         .iframe-container .fullscreen-button:hover {
@@ -604,8 +618,10 @@
     </div>
 
     <div class="iframe-container" id="iframeContainer">
-        <button class="close-button" onclick="closeGame()">Close</button>
-        <button class="fullscreen-button" onclick="toggleGameFullscreen()">Fullscreen</button>
+        <button class="close-button" onclick="closeGame()">❌</button>
+        <button class="fullscreen-button" onclick="toggleGameFullscreen()">
+            <img src="https://cdn-icons-png.flaticon.com/512/6398/6398940.png" alt="Fullscreen">
+        </button>
         <iframe id="gameIframe" src=""></iframe>
     </div>
 
@@ -703,8 +719,6 @@
                 document.getElementById('gameLoadingScreen').style.display = 'none';
                 // Reset fullscreen state when opening new game
                 document.getElementById('iframeContainer').classList.remove('fullscreen');
-                // Reset button text
-                document.querySelector('.fullscreen-button').textContent = 'Fullscreen';
             }, 1500); // 1.5 second loading screen
         }
 
@@ -713,21 +727,12 @@
             document.getElementById('iframeContainer').style.display = 'none';
             // Reset fullscreen state when closing game
             document.getElementById('iframeContainer').classList.remove('fullscreen');
-            // Reset button text
-            document.querySelector('.fullscreen-button').textContent = 'Fullscreen';
         }
 
         // Game fullscreen functionality
         function toggleGameFullscreen() {
             const iframeContainer = document.getElementById('iframeContainer');
             iframeContainer.classList.toggle('fullscreen');
-            
-            const fullscreenButton = document.querySelector('.fullscreen-button');
-            if (iframeContainer.classList.contains('fullscreen')) {
-                fullscreenButton.textContent = 'Exit Fullscreen';
-            } else {
-                fullscreenButton.textContent = 'Fullscreen';
-            }
         }
 
         // Contact Us functionality
@@ -736,8 +741,6 @@
             document.getElementById('iframeContainer').style.display = 'flex';
             // Reset fullscreen state when opening contact us
             document.getElementById('iframeContainer').classList.remove('fullscreen');
-            // Reset button text
-            document.querySelector('.fullscreen-button').textContent = 'Fullscreen';
         }
 
         // Chat Room functionality
@@ -746,8 +749,6 @@
             document.getElementById('iframeContainer').style.display = 'flex';
             // Reset fullscreen state when opening chat room
             document.getElementById('iframeContainer').classList.remove('fullscreen');
-            // Reset button text
-            document.querySelector('.fullscreen-button').textContent = 'Fullscreen';
         }
 
         // Form functionality
@@ -756,8 +757,6 @@
             document.getElementById('iframeContainer').style.display = 'flex';
             // Reset fullscreen state when opening form
             document.getElementById('iframeContainer').classList.remove('fullscreen');
-            // Reset button text
-            document.querySelector('.fullscreen-button').textContent = 'Fullscreen';
         }
 
         // Settings functionality
