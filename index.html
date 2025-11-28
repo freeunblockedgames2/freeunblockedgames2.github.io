@@ -34,6 +34,7 @@
             padding: 20px;
             background-color: rgba(51, 51, 51, 0.8);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            position: relative;
         }
 
         .neon-text {
@@ -143,6 +144,39 @@
         .btn:hover {
             background-color: #007bff;
             transform: scale(1.05);
+        }
+
+        .settings-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #00f;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: neonGlowBlueButton 2s ease-in-out infinite alternate;
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+        }
+
+        @keyframes neonGlowBlueButton {
+            from {
+                box-shadow: 0 0 5px #fff, 0 0 15px #00f, 0 0 30px #00f;
+            }
+            to {
+                box-shadow: 0 0 10px #fff, 0 0 25px #00f, 0 0 50px #00f;
+            }
+        }
+
+        .settings-button:hover {
+            background-color: #007bff;
+            transform: scale(1.1);
         }
 
         .card-container {
@@ -264,15 +298,6 @@
             transition: opacity 0.3s ease;
         }
 
-        @keyframes neonGlowBlueButton {
-            from {
-                box-shadow: 0 0 5px #fff, 0 0 15px #00f, 0 0 30px #00f;
-            }
-            to {
-                box-shadow: 0 0 10px #fff, 0 0 25px #00f, 0 0 50px #00f;
-            }
-        }
-
         .iframe-container .fullscreen-button:hover {
             background-color: #007bff;
         }
@@ -282,6 +307,132 @@
         .iframe-container.fullscreen .fullscreen-button {
             opacity: 0;
             pointer-events: none;
+        }
+
+        /* Settings Modal */
+        .settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .settings-content {
+            background-color: rgba(44, 44, 44, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            border: 3px solid #00f;
+            box-shadow: 0 0 30px rgba(0, 0, 255, 0.7);
+        }
+
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #00f;
+            padding-bottom: 10px;
+        }
+
+        .settings-title {
+            font-size: 28px;
+            color: #00f;
+            text-shadow: 0 0 10px #00f;
+            margin: 0;
+        }
+
+        .close-settings {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .close-settings:hover {
+            color: #ff0000;
+        }
+
+        .tab-cloak-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #00f;
+            margin-bottom: 15px;
+            text-shadow: 0 0 5px #00f;
+        }
+
+        .cloak-input-group {
+            margin-bottom: 15px;
+        }
+
+        .cloak-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .cloak-input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00f;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .cloak-input:focus {
+            outline: none;
+            box-shadow: 0 0 10px #00f;
+        }
+
+        .cloak-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #00f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: 'Arial Black', sans-serif;
+            transition: background-color 0.3s;
+        }
+
+        .cloak-button:hover {
+            background-color: #007bff;
+        }
+
+        .reset-cloak {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: 'Arial Black', sans-serif;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .reset-cloak:hover {
+            background-color: #cc0000;
         }
 
         .footer {
@@ -326,6 +477,8 @@
             <button class="btn" onclick="openForm()">Form</button>
             <button class="btn" onclick="window.open('https://discord.gg/xFMpuKBFr8', '_blank')">Join Our Discord</button>
         </div>
+        
+        <button class="settings-button" onclick="openSettings()">⚙️</button>
     </header>
     
     <div class="card-container" id="cardContainer">
@@ -385,6 +538,33 @@
         <button class="close-button" onclick="closeGame()">Close</button>
         <button class="fullscreen-button" onclick="toggleGameFullscreen()">Fullscreen</button>
         <iframe id="gameIframe" src=""></iframe>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 class="settings-title">Settings</h2>
+                <button class="close-settings" onclick="closeSettings()">×</button>
+            </div>
+            
+            <div class="tab-cloak-section">
+                <h3 class="section-title">Tab Cloak</h3>
+                
+                <div class="cloak-input-group">
+                    <label for="tabTitle">Set Tab Title:</label>
+                    <input type="text" id="tabTitle" class="cloak-input" placeholder="Enter new tab name...">
+                </div>
+                
+                <div class="cloak-input-group">
+                    <label for="tabIcon">Set Tab Icon:</label>
+                    <input type="text" id="tabIcon" class="cloak-input" placeholder="Enter new tab icon URL...">
+                </div>
+                
+                <button class="cloak-button" onclick="applyTabCloak()">Apply Tab Cloak</button>
+                <button class="reset-cloak" onclick="resetTabCloak()">Reset to Default</button>
+            </div>
+        </div>
     </div>
 
     <div class="footer">
@@ -502,6 +682,83 @@
             // Reset button text
             document.querySelector('.fullscreen-button').textContent = 'Fullscreen';
         }
+
+        // Settings functionality
+        function openSettings() {
+            document.getElementById('settingsModal').style.display = 'flex';
+        }
+
+        function closeSettings() {
+            document.getElementById('settingsModal').style.display = 'none';
+        }
+
+        // Tab Cloak functionality
+        function applyTabCloak() {
+            const title = document.getElementById('tabTitle').value;
+            const icon = document.getElementById('tabIcon').value;
+            
+            if (title) {
+                document.title = title;
+                // Save to localStorage
+                localStorage.setItem('cloakedTitle', title);
+            }
+            
+            if (icon) {
+                const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                link.type = 'image/x-icon';
+                link.rel = 'shortcut icon';
+                link.href = icon;
+                document.head.appendChild(link);
+                // Save to localStorage
+                localStorage.setItem('cloakedIcon', icon);
+            }
+            
+            if (title || icon) {
+                alert('Tab cloak applied successfully!');
+                closeSettings();
+            } else {
+                alert('Please enter a title or icon URL.');
+            }
+        }
+
+        function resetTabCloak() {
+            document.title = 'Free Unblocked Games';
+            // Reset to default favicon
+            const link = document.querySelector("link[rel*='icon']");
+            if (link) {
+                link.href = '#';
+            }
+            
+            // Clear localStorage
+            localStorage.removeItem('cloakedTitle');
+            localStorage.removeItem('cloakedIcon');
+            
+            // Clear input fields
+            document.getElementById('tabTitle').value = '';
+            document.getElementById('tabIcon').value = '';
+            
+            alert('Tab cloak reset to default!');
+        }
+
+        // Load saved cloak settings on page load
+        window.addEventListener('load', function() {
+            const savedTitle = localStorage.getItem('cloakedTitle');
+            const savedIcon = localStorage.getItem('cloakedIcon');
+            
+            if (savedTitle) {
+                document.title = savedTitle;
+                document.getElementById('tabTitle').value = savedTitle;
+            }
+            
+            if (savedIcon) {
+                const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                link.type = 'image/x-icon';
+                link.rel = 'shortcut icon';
+                link.href = savedIcon;
+                document.head.appendChild(link);
+                document.getElementById('tabIcon').value = savedIcon;
+            }
+        });
 
         // Starfield animation
         const canvas = document.getElementById('starfield');
